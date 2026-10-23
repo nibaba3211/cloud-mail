@@ -44,3 +44,25 @@ crons = ["0 * * * *"] #每小时执行；resetDaySendCount 仅在 UTC 0 点生�
 
 [build]
 command = "pnpm --prefix ../mail-vue install && pnpm --prefix ../mail-vue run build"
+# ===== 第二个邮箱 gkstar.jp（Worker: cloud-mail2）部署命令: npx wrangler deploy --env mail2 =====
+[env.mail2]
+name = "cloud-mail2"
+keep_vars = true
+
+[[env.mail2.d1_databases]]
+binding = "db"
+database_name = "mail2"
+database_id = "24d49238-f85b-4fdf-b7f1-970e5d51fd1d"
+
+[[env.mail2.kv_namespaces]]
+binding = "kv"
+id = "9add8b90cb72408abee80ab55a4aaf83"
+
+[env.mail2.ai]
+binding = "ai"
+
+[env.mail2.assets]
+binding = "assets"
+directory = "./dist"
+not_found_handling = "single-page-application"
+run_worker_first = true
